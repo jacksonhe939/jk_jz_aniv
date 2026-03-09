@@ -426,13 +426,21 @@ body::before {
 
 .gallery-overlay h3 {
   margin: 0 0 8px;
-  font-size: 1.25rem;
+  font-family: "Ma Shan Zheng", cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #fff9fb;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
 }
 
 .gallery-overlay p {
   margin: 0;
+  font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+  font-size: 1.1rem;
   color: rgba(255, 246, 251, 0.82);
   line-height: 1.7;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.24);
 }
 
 .timeline {

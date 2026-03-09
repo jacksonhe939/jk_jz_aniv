@@ -1,37 +1,13 @@
-const memoryThemes = [
-  {
-    title: "和 BBZ 的甜甜日常",
-    text: "普通的一天，因为是和你一起，就会自动变成值得纪念的一天。"
-  },
-  {
-    title: "小朋友今天也很可爱",
-    text: "每次看到你的笑，我都会觉得这一年真的好值。"
-  },
-  {
-    title: "我们一起去过的地方",
-    text: "风景很好看，但因为你在旁边，回忆才会真正发光。"
-  },
-  {
-    title: "想偷偷珍藏的瞬间",
-    text: "有些画面舍不得删，因为每一张里都有我最偏爱的你。"
-  },
-  {
-    title: "高热量约会记录",
-    text: "一起吃了好多好吃的，也把喜欢一点点养得越来越胖乎乎。"
-  },
-  {
-    title: "略略略，一周年啦",
-    text: "这一页不只是相册，也是 zjy 想认真送给 ljz 的一份纪念。"
-  }
-];
+const galleryTitle = "和 BBZ 的甜甜日常";
+const galleryText = "普通的一天，因为是和你一起，就会自动变成值得纪念的一天。";
 const galleryShapes = ["wide", "tall", "", "", "wide", "", "tall", "", ""];
 const totalPhotos = 34;
 const photoMemories = Array.from({ length: totalPhotos }, (_, index) => {
   const imageNumber = String(index + 1).padStart(2, "0");
-  const theme = memoryThemes[index % memoryThemes.length];
 
   return {
-    ...theme,
+    title: galleryTitle,
+    text: galleryText,
     image: `assets/photos/photo-${imageNumber}.jpg`,
     shape: galleryShapes[index % galleryShapes.length]
   };
@@ -174,8 +150,8 @@ function drawHearts(context) {
 
 function downloadPostcard() {
   const canvas = document.createElement("canvas");
-  const width = 1600;
-  const height = 1000;
+  const width = 1200;
+  const height = 1600;
   canvas.width = width;
   canvas.height = height;
 
@@ -184,43 +160,35 @@ function downloadPostcard() {
   drawBackground(context, width, height);
   drawHearts(context);
 
-  context.fillStyle = "rgba(255, 255, 255, 0.1)";
-  context.fillRect(80, 90, width - 160, height - 180);
+  context.fillStyle = "rgba(255, 255, 255, 0.08)";
+  context.fillRect(70, 70, width - 140, height - 140);
 
   context.strokeStyle = "rgba(255, 255, 255, 0.18)";
   context.lineWidth = 2;
-  context.strokeRect(80, 90, width - 160, height - 180);
+  context.strokeRect(70, 70, width - 140, height - 140);
 
   context.fillStyle = "#f7d8a6";
-  context.font = '600 28px "Noto Serif SC", serif';
-  context.fillText("Words to Say", 140, 165);
+  context.font = '600 26px "Noto Serif SC", serif';
+  context.fillText("Postcard for ljz", 120, 150);
 
   context.fillStyle = "#fff7fb";
-  context.font = '700 88px "Cormorant Garamond", serif';
-  context.fillText("zjy  ❤  ljz", 140, 270);
+  context.font = '700 84px "Cormorant Garamond", serif';
+  context.fillText("zjy  ❤  ljz", 120, 265);
 
   context.fillStyle = "rgba(255, 247, 251, 0.8)";
-  context.font = '500 34px "Noto Serif SC", serif';
-  context.fillText("一周年快乐", 140, 330);
+  context.font = '500 32px "Noto Serif SC", serif';
+  context.fillText("一周年快乐", 120, 325);
 
-  context.fillStyle = "#fff0f7";
-  context.font = '500 34px "Noto Serif SC", serif';
-  const letterText = Array.from(letterBody.querySelectorAll("p"))
-    .slice(0, 2)
-    .map((item) => item.textContent.trim())
-    .join("\n");
-
-  const endY = wrapText(context, letterText, 140, 420, 830, 52);
-
-  context.fillStyle = "#ffd5e6";
-  context.font = '400 44px "Ma Shan Zheng", cursive';
-  context.fillText("永远站在你这边的 zjy", 140, Math.min(endY + 70, 840));
-
-  const quoteX = 1050;
-  const quoteY = 270;
-  const quoteWidth = 360;
-  const quoteHeight = 480;
-  const quoteGradient = context.createLinearGradient(quoteX, quoteY, quoteX + quoteWidth, quoteY + quoteHeight);
+  const quoteX = 120;
+  const quoteY = 390;
+  const quoteWidth = width - 240;
+  const quoteHeight = 760;
+  const quoteGradient = context.createLinearGradient(
+    quoteX,
+    quoteY,
+    quoteX + quoteWidth,
+    quoteY + quoteHeight
+  );
   quoteGradient.addColorStop(0, "rgba(255, 226, 237, 0.18)");
   quoteGradient.addColorStop(1, "rgba(255, 255, 255, 0.05)");
   context.fillStyle = quoteGradient;
@@ -230,23 +198,43 @@ function downloadPostcard() {
   context.strokeRect(quoteX, quoteY, quoteWidth, quoteHeight);
 
   context.fillStyle = "#fff8fb";
-  context.font = '700 44px "Cormorant Garamond", serif';
-  context.fillText("Postcard", quoteX + 34, quoteY + 74);
+  context.font = '700 52px "Cormorant Garamond", serif';
+  context.fillText("Words to Say", quoteX + 48, quoteY + 92);
 
   context.fillStyle = "rgba(255, 248, 251, 0.82)";
-  context.font = '500 30px "Noto Serif SC", serif';
-  wrapText(
+  context.font = '500 36px "Noto Serif SC", serif';
+  let textY = wrapText(
     context,
-    "以后不让老婆一个人看小水豚哭啦。\n老婆想我时候拍拍我，我就会飞奔过去拍拍你。",
-    quoteX + 34,
-    quoteY + 148,
-    quoteWidth - 68,
-    46
+    "以后不让老婆一个人看小水豚哭啦。\n老婆想我时候拍拍我，\n我就会飞奔过去拍拍你。",
+    quoteX + 48,
+    quoteY + 170,
+    quoteWidth - 96,
+    58
   );
 
   context.fillStyle = "#ffd3e3";
-  context.font = '500 24px "Noto Serif SC", serif';
-  context.fillText("Keep this love forever.", quoteX + 34, quoteY + quoteHeight - 54);
+  context.font = '400 56px "Ma Shan Zheng", cursive';
+  textY += 36;
+  context.fillText("永远站在你这边的 zjy", quoteX + 48, Math.min(textY, 1080));
+
+  context.fillStyle = "#fff4f8";
+  context.font = '500 28px "Noto Serif SC", serif';
+  context.fillText("Keep this love forever.", quoteX + 48, quoteY + quoteHeight - 56);
+
+  context.fillStyle = "rgba(255, 214, 233, 0.95)";
+  context.font = '400 78px "Ma Shan Zheng", cursive';
+  context.fillText("给 BBZ 的纪念明信片", 120, 1330);
+
+  context.fillStyle = "rgba(255, 247, 251, 0.82)";
+  context.font = '500 30px "Noto Serif SC", serif';
+  wrapText(
+    context,
+    "快点击存起来吧\n把这一年的偏爱和回忆都留下来。",
+    120,
+    1410,
+    width - 240,
+    48
+  );
 
   const link = document.createElement("a");
   link.href = canvas.toDataURL("image/png");
